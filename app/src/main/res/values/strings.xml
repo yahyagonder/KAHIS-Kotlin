@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">KAHIS</string>
+    <string name="welcome_title">Welcome to KAHIS</string>
+    <string name="app_subtitle">Air Quality Monitoring System</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_register">Login / Register</string>
+    <string name="designed_by">Designed by Yahya GÖNDER</string>
+    <string name="enter_credentials">Please enter email and password</string>
+    <string name="auth_failed">Auth failed: %1$s</string>
+
+    <string name="no_connection">No Connection</string>
+    <string name="error_prefix">Error: %1$s</string>
+    <string name="welcome_user">Welcome</string>
+
+    <string name="status_fresh">The air is fresh today, enjoy your walk!</string>
+    <string name="status_moderate">Moderate air quality, maybe take it easy.</string>
+    <string name="status_poor">Air quality is poor, consider staying indoors.</string>
+
+    <string name="pm25_title">PM2.5 (Air Quality)</string>
+    <string name="voc_title">VOC (Gas)</string>
+    <string name="uv_title">UV Index</string>
+
+    <string name="status_good">Good</string>
+    <string name="status_moderate_label">Moderate</string>
+    <string name="status_unhealthy">Unhealthy</string>
+    <string name="status_warning">Warning</string>
+    <string name="status_danger">Danger</string>
+    <string name="status_low">Low</string>
+    <string name="status_high">High</string>
+    <string name="status_very_high">Very High</string>
+
+    <string name="learn_more">Learn More</string>
+    <string name="got_it">Got it</string>
+
+    <string name="about_pm25">About PM2.5</string>
+    <string name="desc_pm25">PM2.5 refers to fine particulate matter with a diameter of 2.5 micrometers or less. These tiny particles can penetrate deep into the lungs and even enter the bloodstream, posing significant health risks. Monitoring PM2.5 is crucial for understanding the Air Quality Index (AQI).</string>
+
+    <string name="about_voc">About VOCs</string>
+    <string name="desc_voc">Volatile Organic Compounds (VOCs) are gases emitted from certain solids or liquids. Common indoor sources include household chemicals, paints, varnishes, and cosmetics. High levels of VOCs can cause eye, nose, and throat irritation.</string>
+
+    <string name="about_uv">About UV Index</string>
+    <string name="desc_uv">The UV Index measures the strength of sunburn-producing ultraviolet (UV) radiation. The scale ranges from Low to Extreme. Higher values indicate a greater risk of sunburn and emphasize the importance of sun protection.</string>
+
+    <string name="map_station_title">Current Air Quality Station</string>
+    <string name="map_station_snippet">PM2.5: 12 µg/m³</string>
+    <string name="map_shared_title">Air Quality: %1$d PM2.5 | %2$d VOC | %3$d UV</string>
+    <string name="map_shared_by">Shared by: %1$s</string>
+
+    <string name="share_title">Share Air Quality Data</string>
+    <string name="current_readings">Current Readings</string>
+    <string name="unit_pm25">µg/m³</string>
+    <string name="unit_voc">ppm</string>
+    <string name="unit_uv">Index</string>
+    <string name="share_anonymously">Share Anonymously</string>
+    <string name="location_shared">Location Shared!</string>
+    <string name="location_permission_required">Location permission required</string>
+    <string name="location_error">Could not get location</string>
+    <string name="location_get_error">Error getting location</string>
+    <string name="share_on_map">Share Location on Map</string>
+    <string name="connect_device_warning">Please connect to your KAHIS device via Wi-Fi to enable sharing.</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_map">Map</string>
+    <string name="nav_measurements">Measurement</string>
+    <string name="nav_profile">Profile</string>
+
+    <string name="profile_name">Name</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_notifications">Notifications</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="app_version">App Version</string>
+    <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_confirm_title">Delete Account?</string>
+    <string name="delete_account_confirm_msg">Are you sure you want to delete your account? This action cannot be undone.</string>
+    <string name="delete_confirm">Delete</string>
+    <string name="account_deleted">Account successfully deleted.</string>
+    <string name="my_measurements_title">My Measurements</string>
+    <string name="no_measurements">No measurements found.</string>
+    <string name="measurement_deleted">Measurement deleted.</string>
+    <string name="unknown">Unknown</string>
+
+    <string name="device_connected">Wi-Fi Connected</string>
+    <string name="connection_lost">Wi-Fi Connection Lost</string>
+
+    <string name="language_en">EN</string>
+    <string name="language_tr">TR</string>
+    <string name="label_pm25">PM2.5</string>
+    <string name="label_voc">VOC</string>
+    <string name="label_uv">UV</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_title">KAHIS Live Monitor</string>
+    <string name="notification_channel_name">KAHIS Live Monitor Channel</string>
+    <string name="notification_channel_desc">Shows live air quality metrics from your KAHIS device.</string>
+    <string name="notification_format">PM2.5: %1$d µg/m³ | VOC: %2$d ppm | UV: %3$d</string>
+    <string name="notification_permission_denied">Notification permission denied. Live monitor will not be visible.</string>
+</resources>

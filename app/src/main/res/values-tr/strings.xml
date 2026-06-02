@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">KAHIS</string>
+    <string name="welcome_title">KAHIS\'e Hoş Geldiniz</string>
+    <string name="app_subtitle">Hava Kalitesi İzleme Sistemi</string>
+    <string name="email">E-posta</string>
+    <string name="password">Şifre</string>
+    <string name="login_register">Giriş Yap / Kayıt Ol</string>
+    <string name="designed_by">Yahya GÖNDER tarafından tasarlandı</string>
+    <string name="enter_credentials">Lütfen e-posta ve şifre giriniz</string>
+    <string name="auth_failed">Kimlik doğrulama başarısız: %1$s</string>
+
+    <string name="no_connection">Bağlantı Yok</string>
+    <string name="error_prefix">Hata: %1$s</string>
+    <string name="welcome_user">Hoş geldiniz</string>
+
+    <string name="status_fresh">Hava bugün taze, yürüyüşün tadını çıkar!</string>
+    <string name="status_moderate">Orta düzey hava kalitesi, dikkatli olunuz.</string>
+    <string name="status_poor">Hava kalitesi düşük, iç mekanda kalmayı düşünün.</string>
+
+    <string name="pm25_title">PM2.5 (Hava Kalitesi)</string>
+    <string name="voc_title">VOC (Gaz)</string>
+    <string name="uv_title">UV İndeksi</string>
+
+    <string name="status_good">İyi</string>
+    <string name="status_moderate_label">Orta</string>
+    <string name="status_unhealthy">Sağlıksız</string>
+    <string name="status_warning">Uyarı</string>
+    <string name="status_danger">Tehlike</string>
+    <string name="status_low">Düşük</string>
+    <string name="status_high">Yüksek</string>
+    <string name="status_very_high">Çok Yüksek</string>
+
+    <string name="learn_more">Daha Fazla Bilgi</string>
+    <string name="got_it">Anladım</string>
+
+    <string name="about_pm25">PM2.5 Hakkında</string>
+    <string name="desc_pm25">PM2.5, çapı 2.5 mikrometre veya daha küçük olan ince partikül maddeyi ifade eder. Bu küçük parçacıklar ciğerlerin derinliklerine nüfuz edebilir ve hatta kan dolaşımına girerek önemli sağlık riskleri oluşturabilir. PM2.5 izleme, Hava Kalitesi İndeksini (AQI) anlamak için çok önemlidir.</string>
+
+    <string name="about_voc">VOC\'lar Hakkında</string>
+    <string name="desc_voc">Uçucu Organik Bileşikler (VOC\'lar), belirli katılardan veya sıvılardan yayılan gazlardır. Yaygın iç mekan kaynakları arasında ev kimyasalları, boyalar, vernikler ve kozmetikler bulunur. Yüksek VOC seviyeleri göz, burun ve boğaz tahrişine neden olabilir.</string>
+
+    <string name="about_uv">UV İndeksi Hakkında</string>
+    <string name="desc_uv">UV İndeksi, güneş yanığına neden olan ultraviyole (UV) radyasyonun gücünü ölçer. Ölçek Düşük ile Ekstrem arasında değişir. Daha yüksek değerler güneş yanığı riskinin arttığını gösterir ve güneşten korunmanın önemini vurgular.</string>
+
+    <string name="map_station_title">Mevcut Hava Kalitesi İstasyonu</string>
+    <string name="map_station_snippet">PM2.5: 12 µg/m³</string>
+    <string name="map_shared_title">Hava Kalitesi: %1$d PM2.5 | %2$d VOC | %3$d UV</string>
+    <string name="map_shared_by">Paylaşan: %1$s</string>
+
+    <string name="share_title">Hava Kalitesi Verilerini Paylaş</string>
+    <string name="current_readings">Güncel Değerler</string>
+    <string name="unit_pm25">µg/m³</string>
+    <string name="unit_voc">ppm</string>
+    <string name="unit_uv">İndeks</string>
+    <string name="share_anonymously">Anonim Paylaş</string>
+    <string name="location_shared">Konum Paylaşıldı!</string>
+    <string name="location_permission_required">Konum izni gerekiyor</string>
+    <string name="location_error">Konum alınamadı</string>
+    <string name="location_get_error">Konum alınırken hata oluştu</string>
+    <string name="share_on_map">Konumu Haritada Paylaş</string>
+    <string name="connect_device_warning">Paylaşımı etkinleştirmek için lütfen KAHIS cihazınıza Wi-Fi üzerinden bağlanın.</string>
+    <string name="cancel">İptal</string>
+
+    <string name="nav_home">Ana Sayfa</string>
+    <string name="nav_map">Harita</string>
+    <string name="nav_measurements">Ölçümlerim</string>
+    <string name="nav_profile">Profil</string>
+
+    <string name="profile_name">İsim</string>
+    <string name="profile_email">E-posta</string>
+    <string name="profile_notifications">Bildirimler</string>
+    <string name="enabled">Etkin</string>
+    <string name="disabled">Devre Dışı</string>
+    <string name="app_version">Uygulama Sürümü</string>
+    <string name="logout">Çıkış Yap</string>
+    <string name="delete_account">Hesabımı Sil</string>
+    <string name="delete_account_confirm_title">Hesabı Sil?</string>
+    <string name="delete_account_confirm_msg">Hesabınızı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</string>
+    <string name="delete_confirm">Sil</string>
+    <string name="account_deleted">Hesap başarıyla silindi.</string>
+    <string name="my_measurements_title">Ölçümlerim</string>
+    <string name="no_measurements">Ölçüm bulunamadı.</string>
+    <string name="measurement_deleted">Ölçüm silindi.</string>
+    <string name="unknown">Bilinmiyor</string>
+
+    <string name="device_connected">Wi-Fi Bağlandı</string>
+    <string name="connection_lost">Wi-Fi Bağlantısı Kesildi</string>
+
+    <string name="language_en">EN</string>
+    <string name="language_tr">TR</string>
+    <string name="label_pm25">PM2.5</string>
+    <string name="label_voc">VOC</string>
+    <string name="label_uv">UV</string>
+
+    <!-- Bildirim Metinleri -->
+    <string name="notification_title">KAHIS Canlı İzleyici</string>
+    <string name="notification_channel_name">KAHIS Canlı İzleyici Kanalı</string>
+    <string name="notification_channel_desc">KAHIS cihazınızdan gelen canlı hava kalitesi verilerini gösterir.</string>
+    <string name="notification_format">PM2.5: %1$d µg/m³ | VOC: %2$d ppm | UV: %3$d</string>
+    <string name="notification_permission_denied">Bildirim izni reddedildi. Canlı izleyici görünmeyecek.</string>
+</resources>
