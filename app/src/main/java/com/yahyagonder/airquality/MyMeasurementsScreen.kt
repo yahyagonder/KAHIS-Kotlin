@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.yahyagonder.airquality.viewmodel.DashboardViewModel
@@ -24,6 +25,7 @@ import java.util.*
 
 @Composable
 fun MyMeasurementsScreen(
+    bottomPadding: Dp,
     viewModel: DashboardViewModel = viewModel(),
 ) {
     val sharedLocations by viewModel.sharedLocations.collectAsState()
@@ -63,7 +65,12 @@ fun MyMeasurementsScreen(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp),
+                contentPadding = PaddingValues(
+                    start = 24.dp,
+                    end = 24.dp,
+                    top = 8.dp,
+                    bottom = bottomPadding + 8.dp
+                ),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 items(myMeasurements, key = { it.id }) { measurement ->

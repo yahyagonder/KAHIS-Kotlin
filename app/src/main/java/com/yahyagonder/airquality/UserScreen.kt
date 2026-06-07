@@ -21,11 +21,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun UserScreen(onLogout: () -> Unit) {
+fun UserScreen(
+    bottomPadding: Dp,
+    onLogout: () -> Unit
+) {
     val context = LocalContext.current
     val auth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
@@ -73,9 +77,13 @@ fun UserScreen(onLogout: () -> Unit) {
     }
 
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(
+            start = 16.dp,
+            end = 16.dp,
+            top = 16.dp,
+            bottom = bottomPadding + 16.dp
+        ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -133,7 +141,7 @@ fun UserScreen(onLogout: () -> Unit) {
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    ProfileItem(icon = Icons.Default.Info, label = stringResource(R.string.app_version), value = "KAHIS 1.1.0")
+                    ProfileItem(icon = Icons.Default.Info, label = stringResource(R.string.app_version), value = "KAHIS 1.2.0")
                 }
             }
         }

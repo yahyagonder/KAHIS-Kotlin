@@ -25,6 +25,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -34,6 +38,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.NotificationsOff
@@ -49,6 +54,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Surface
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -83,6 +89,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.platform.LocalSavedStateRegistryOwner
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.activity.compose.LocalActivityResultRegistryOwner
@@ -218,50 +226,67 @@ fun MainScreen() {
                     TopAppBar(
                         title = { Text("") },
                         actions = {
-                            IconButton(onClick = {
-                                val newState = !isWifiConnected
-                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                
-                                dashboardViewModel.setWifiConnected(newState, context)
-
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        if (newState) localizedContext.getString(R.string.device_connected) else localizedContext.getString(R.string.connection_lost)
-                                    )
-                                }
-                            }) {
+                            Row(
+                                modifier = Modifier
+                                    .padding(end = 16.dp)
+                                    .clip(RoundedCornerShape(50.dp))
+                                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f))
+                                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                // Wi-Fi Toggle/Indicator
                                 Icon(
                                     imageVector = if (isWifiConnected) Icons.Default.Wifi else Icons.Default.WifiOff,
                                     contentDescription = "Wi-Fi Connection Status",
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-
-                            IconButton(
-                                onClick = {
-                                    val newState = !notificationsEnabled
-                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    
-                                    if (newState) {
-                                        if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                                            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                                        } else {
-                                            dashboardViewModel.setNotificationsEnabled(true, context)
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .clickable {
+                                            val newState = !isWifiConnected
+                                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                            dashboardViewModel.setWifiConnected(newState, context)
+                                            scope.launch {
+                                                snackbarHostState.showSnackbar(
+                                                    if (newState) localizedContext.getString(R.string.device_connected) else localizedContext.getString(R.string.connection_lost)
+                                                )
+                                            }
                                         }
-                                    } else {
-                                        dashboardViewModel.setNotificationsEnabled(false, context)
-                                    }
-                                },
-                                enabled = isWifiConnected
-                            ) {
+                                )
+
+                                // Vertical Divider
+                                Spacer(
+                                    modifier = Modifier
+                                        .height(16.dp)
+                                        .width(1.dp)
+                                        .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f))
+                                )
+
+                                // Live Notification Toggle/Indicator (active bell when service is running, otherwise standard notifications status icon)
+                                val isServiceRunning = isWifiConnected && notificationsEnabled
                                 Icon(
-                                    imageVector = if (notificationsEnabled) Icons.Default.Notifications else Icons.Default.NotificationsOff,
-                                    contentDescription = "Notification Status",
-                                    tint = if (isWifiConnected) {
-                                        if (notificationsEnabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
-                                    } else {
-                                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                                    }
+                                    imageVector = if (isServiceRunning) Icons.Default.NotificationsActive else Icons.Default.NotificationsOff,
+                                    contentDescription = "Live Notification Status",
+                                    tint = if (isServiceRunning) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .clickable {
+                                            if (isWifiConnected) {
+                                                val newState = !notificationsEnabled
+                                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                                if (newState) {
+                                                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                                                        permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                                                    } else {
+                                                        dashboardViewModel.setNotificationsEnabled(true, context)
+                                                    }
+                                                } else {
+                                                    dashboardViewModel.setNotificationsEnabled(false, context)
+                                                }
+                                            } else {
+                                                Toast.makeText(context, localizedContext.getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
                                 )
                             }
                         },
@@ -277,26 +302,38 @@ fun MainScreen() {
             },
             bottomBar = {
                 if (showBars) {
-                    NavigationBar(
-                        containerColor = MaterialTheme.colorScheme.background,
+                    Surface(
+                        modifier = Modifier
+                            .padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
+                            .navigationBarsPadding()
+                            .fillMaxWidth(),
+                        shape = RoundedCornerShape(24.dp),
+                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.90f),
+                        shadowElevation = 6.dp,
                         tonalElevation = 0.dp
                     ) {
-                        bottomBarItems.forEach { screen ->
-                            NavigationBarItem(
-                                icon = { Icon(screen.icon!!, contentDescription = stringResource(screen.titleRes!!)) },
-                                label = { Text(stringResource(screen.titleRes!!)) },
-                                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                                onClick = {
-                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    navController.navigate(screen.route) {
-                                        popUpTo(navController.graph.findStartDestination().id) {
-                                            saveState = true
+                        NavigationBar(
+                            containerColor = Color.Transparent,
+                            tonalElevation = 0.dp,
+                            windowInsets = WindowInsets(0, 0, 0, 0)
+                        ) {
+                            bottomBarItems.forEach { screen ->
+                                NavigationBarItem(
+                                    icon = { Icon(screen.icon!!, contentDescription = stringResource(screen.titleRes!!)) },
+                                    label = { Text(stringResource(screen.titleRes!!)) },
+                                    selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                                    onClick = {
+                                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                        navController.navigate(screen.route) {
+                                            popUpTo(navController.graph.findStartDestination().id) {
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                            restoreState = true
                                         }
-                                        launchSingleTop = true
-                                        restoreState = true
                                     }
-                                }
-                            )
+                                )
+                            }
                         }
                     }
                 }
@@ -305,7 +342,12 @@ fun MainScreen() {
             NavHost(
                 navController = navController,
                 startDestination = startDestination,
-                modifier = Modifier.padding(if (showBars) innerPadding else PaddingValues(0.dp)),
+                modifier = Modifier.padding(
+                    top = if (showBars) innerPadding.calculateTopPadding() else 0.dp,
+                    bottom = 0.dp,
+                    start = if (showBars) innerPadding.calculateStartPadding(LocalLayoutDirection.current) else 0.dp,
+                    end = if (showBars) innerPadding.calculateEndPadding(LocalLayoutDirection.current) else 0.dp
+                ),
                 enterTransition = { fadeIn(animationSpec = tween(300)) + slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(300)) },
                 exitTransition = { fadeOut(animationSpec = tween(300)) + slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(300)) },
                 popEnterTransition = { fadeIn(animationSpec = tween(300)) + slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(300)) },
@@ -322,11 +364,19 @@ fun MainScreen() {
                         onLanguageChange = { currentLanguage = it }
                     ) 
                 }
-                composable(Screen.Home.route) { DashboardScreen(isWifiConnected) }
+                composable(Screen.Home.route) { 
+                    DashboardScreen(
+                        isConnected = isWifiConnected,
+                        bottomPadding = innerPadding.calculateBottomPadding()
+                    ) 
+                }
                 composable(Screen.Map.route) { MapScreen(navController) }
-                composable(Screen.Measurements.route) { MyMeasurementsScreen() }
+                composable(Screen.Measurements.route) { 
+                    MyMeasurementsScreen(bottomPadding = innerPadding.calculateBottomPadding()) 
+                }
                 composable(Screen.Profile.route) { 
                     UserScreen(
+                        bottomPadding = innerPadding.calculateBottomPadding(),
                         onLogout = {
                             dashboardViewModel.resetState()
                             navController.navigate(Screen.Login.route) {
@@ -386,7 +436,6 @@ fun LoginScreen(
             .background(MaterialTheme.colorScheme.background)
             .padding(24.dp)
     ) {
-        // Modern Language Toggle at top right
         Box(
             modifier = Modifier
                 .align(Alignment.TopEnd)
@@ -404,7 +453,6 @@ fun LoginScreen(
                 .fillMaxWidth()
                 .align(Alignment.Center)
         ) {
-            // App Logo/Icon
             Icon(
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = null,
@@ -611,6 +659,7 @@ fun LanguageOption(
 @Composable
 fun DashboardScreen(
     isConnected: Boolean,
+    bottomPadding: Dp,
     viewModel: DashboardViewModel = viewModel()
 ) {
     val context = LocalContext.current
@@ -661,7 +710,11 @@ fun DashboardScreen(
             )
         }
     } else {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = bottomPadding)
+        ) {
             val pm25Value = sensorData?.pm25 ?: 0
             
             val overallStatus = remember(pm25Value) {
